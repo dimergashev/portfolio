@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel &amp; Apartments Page Redesign · Dim Ergashev</title>
+<style>
+  /* ======== Вёрстка как в readymag-кейсе Internet Acquiring, текст сокращён ======== */
+  :root{
+    --ink:#333333;
+    --dim:rgba(51,51,51,.8);
+    --plate:#f7f7f7;
+    --pad:1.67vw;   /* поля как на главной */
+    --sans:"Inter",-apple-system,system-ui,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    background:#fff;color:var(--ink);
+    font-family:var(--sans);font-weight:400;
+    font-size:20px;line-height:28px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  a:hover{opacity:.7;}
+  .wrap{padding:22px var(--pad) 80px;}
+
+  /* ---------- Top bar: как на главной — липкая, во всю ширину ---------- */
+  .top{
+    position:sticky;top:0;z-index:50;
+    background:#fff;
+    display:flex;align-items:center;justify-content:space-between;
+    font-weight:500;
+    margin:0 calc(0px - var(--pad));
+    padding:18px var(--pad);
+  }
+  .top .brand{display:flex;align-items:center;gap:10px;font-size:22px;letter-spacing:-.01em;transition:color .2s;}
+  .top .brand:hover{color:#8c8c8c;}
+  .top nav{display:flex;gap:22px;font-size:22px;letter-spacing:-.01em;}
+  .top nav a{transition:color .2s;}
+  .top nav a:hover{color:#8c8c8c;opacity:1;}
+
+  .back{display:inline-block;margin-top:72px;color:var(--dim);}
+
+  /* ---------- H1 с иконкой ---------- */
+  .h1row{display:flex;align-items:center;gap:22px;margin:28px 0 56px;}
+  .h1row .icon{width:64px;height:64px;border-radius:14px;flex:none;object-fit:cover;}
+  h1{font-size:48px;line-height:56px;font-weight:400;letter-spacing:-.01em;}
+
+  /* ---------- Секции ---------- */
+  .sec{
+    display:grid;grid-template-columns:calc(48.33vw - 40px) 1fr;gap:40px;   /* pad 1.67vw + колонка + гаттер = текст ровно на 50vw, по кромке синего фона oldnew */
+    margin:110px 0;align-items:start;
+  }
+  .sec.after-media{margin-top:80px;}
+  h2{font-size:32px;line-height:32px;font-weight:400;}
+  .body{max-width:1025px;}
+  .body p{margin-bottom:28px;}
+  .body p:last-child{margin-bottom:0;}
+  .body ul{list-style:none;}
+  .body li{margin:16px 0;}
+  .body li::before{content:"✦  ";white-space:pre;}
+  strong{font-weight:600;}
+  .quote{color:var(--dim);font-style:italic;}
+  .sub{font-weight:600;margin:44px 0 12px;}
+
+  /* ---------- Impact-строки ---------- */
+  .imp{display:grid;grid-template-columns:280px 1fr;gap:28px;margin:18px 0;}
+  .imp .m{font-weight:600;}
+
+  /* ---------- Медиа ---------- */
+  .media{margin:72px 0;}
+  .media img{width:100%;display:block;border-radius:24px;}
+  .media.bleed{margin-left:calc(0px - var(--pad));margin-right:calc(0px - var(--pad));}
+  .media.bleed img{border-radius:0;}
+
+  /* серая полоса во всю ширину: текст + картинка внутри */
+  .band{background:#f7f7f7;margin:110px calc(0px - var(--pad));padding:80px var(--pad);}
+  .band .sec{margin:0 0 80px;}
+  .band .media{margin:0;}
+  .plate{background:var(--plate);border-radius:24px;padding:clamp(24px,4vw,64px);}
+  .plate img{border-radius:12px;}
+  .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start;}
+  .cap{font-size:15px;line-height:1.5;color:var(--dim);margin-top:14px;}
+
+  /* ---------- Плейсхолдеры ---------- */
+  .ph{
+    border:1.5px dashed #d4d4d4;border-radius:24px;background:rgba(240,240,240,.5);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    text-align:center;padding:40px;min-height:340px;
+  }
+  .ph .t{font-size:15px;line-height:1.55;color:var(--dim);max-width:52ch;}
+  .ph--tall{min-height:460px;}
+
+  /* ---------- Заметки для Дима ---------- */
+  .note{
+    margin:28px 0 0;padding:20px 24px;
+    background:#faf3d3;border-radius:16px;
+    font-size:15px;line-height:1.6;color:#5d5636;
+  }
+  .note .nt{font-size:12px;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:8px;color:#a4924a;font-weight:600;}
+
+  /* ---------- Footer ---------- */
+  .casenav{display:flex;justify-content:space-between;gap:24px;font-size:32px;line-height:32px;margin:120px 0 0;}
+  .footer-band{
+    background:var(--plate);
+    margin:120px calc(0px - var(--pad)) -80px;   /* во всю ширину и вплотную к низу страницы */
+    padding:110px var(--pad) 56px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;
+  }
+  .footer-band .cta{font-size:48px;line-height:56px;}
+  .footer-band .links{display:flex;gap:36px;font-size:16px;line-height:24px;padding-bottom:10px;}
+
+  @media (max-width:800px){
+    body{font-size:18px;line-height:26px;}
+    .sec{grid-template-columns:1fr;gap:20px;margin:72px 0;}
+    h1{font-size:34px;line-height:40px;}
+    h2{font-size:26px;line-height:28px;}
+    .imp{grid-template-columns:1fr;gap:6px;}
+    .pair{grid-template-columns:1fr;}
+    .footer-band{flex-direction:column;align-items:flex-start;padding-top:64px;}
+    .footer-band .cta{font-size:32px;line-height:38px;}
+    .footer-band .links{flex-wrap:wrap;gap:20px;padding-bottom:0;}
+  }
+
+  /* ---------- Мобильный адаптив (<600px) ---------- */
+  @media (max-width:600px){
+    :root{--pad:16px;}
+    .back{margin-top:36px;}
+    .h1row{flex-direction:column;align-items:flex-start;gap:14px;margin:20px 0 36px;}   /* иконка над заголовком */
+    .sec{margin:48px 0;gap:12px;}
+    .sec.after-media{margin-top:40px;}
+    .sec:has(+ .media){margin-bottom:20px;}
+    .sec + .media{margin-top:20px;}
+    .media{margin:32px 0;}
+    .media img{border-radius:0;}                      /* без скруглений */
+    .plate{border-radius:16px;padding:20px 12px;}
+    .plate img{border-radius:0;}
+    .band{margin-top:56px;padding:40px var(--pad);}
+    .band .sec{margin:0 0 20px;}
+    .footer-band{margin-top:56px;padding:48px var(--pad) 32px;}
+    .casenav{margin-top:56px;font-size:24px;line-height:28px;}
+  }
+
+  /* ---------- Галерея по тапу (мобилка) ---------- */
+  .gal{position:fixed;inset:0;background:#fff;z-index:100;display:flex;}
+  .gal-close{position:absolute;top:12px;right:12px;z-index:2;font-size:18px;line-height:1;background:#131211;color:#fff;border:0;border-radius:999px;width:44px;height:44px;cursor:pointer;}
+  .gal-strip{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;align-items:center;scrollbar-width:none;}
+  .gal-strip::-webkit-scrollbar{display:none;}
+  .gal-slide{flex:0 0 100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;padding:16px;}
+  .gal-slide img{max-width:100%;max-height:86vh;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <a class="brand" href="index.html">Dim Ergashev</a>
+      <nav><a href="https://drive.google.com/file/d/1pgdDutoTozPM2fLYUc_o0v_Ura2OFSxa/view?usp=sharing" target="_blank" rel="noopener">CV</a></nav>
+    </header>
+
+    <a class="back" href="index.html">← Back</a>
+
+    <div class="h1row">
+      <img class="icon" src="assets/logo-etg.png" alt="Ostrovok">
+      <h1>Hotel &amp;&nbsp;apartments page redesign</h1>
+    </div>
+
+    <!-- Hero -->
+    <div class="media" style="margin-top:0">
+      <img src="assets/111.png" alt="The new hotel page: room and rate selection" style="border-radius:0">
+    </div>
+
+    <!-- ================= КОНТЕКСТ ================= -->
+    <section class="sec">
+      <h2>Context</h2>
+      <div class="body">
+        <p>Ostrovok is a brand of Emerging Travel Group. After Booking.com left Russia in 2022, user traffic surged: the company assembled a product team of big-tech alumni, and I joined to lead design. The hotel page — the busiest point of the funnel — had grown outdated, and there had never been enough engineering resource to rethink it end-to-end.</p>
+        <p>By the end of the year the page team had capacity freed up for the coming quarters: either we enter that window with a ready redesign, or the page stays as is indefinitely. The main trigger was apartments — a growing segment the page was never designed for; still, every block was designed to be reusable — one system for both hotels and apartments. <strong>There were no user complaints</strong> — there was an opportunity to move conversion, and we had to find the growth points ourselves.</p>
+        <p class="sub">The challenge: three constraints at once</p>
+        <ul>
+          <li><strong>Hit the deadline:</strong> design finished and approved before the holidays — otherwise the window closes.</li>
+          <li><strong>Don&rsquo;t hurt conversion:</strong> the highest-revenue point of the funnel — hence shipping in parts with a separate A/B test for every block.</li>
+          <li><strong>Improve the UX — and lift the metrics:</strong> conversion to the next funnel steps and, ultimately, to bookings.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= РЕСЁРЧ ================= -->
+    <section class="sec">
+      <h2>Research foundation</h2>
+      <div class="body">
+        <p>One body of data for the whole project. I wrote the guide, and we ran <strong>14 customer development interviews</strong>: people who travel regularly, but neither Ostrovok users nor employees. The guide moved from a step-by-step walkthrough of their last real trip (CJM) to general patterns: selection criteria, behaviour on search results and the property page, expectations for photos, reasons to drop off.</p>
+        <p>Synthesis on the board turned into a <strong>backlog of changes</strong>, and funnel analytics set the priorities: the biggest losses were at the rate selection step. Order of work: rates first; header, gallery and the remaining blocks next.</p>
+      </div>
+    </section>
+
+    <figure class="media">
+      <div class="plate"><img src="assets/guide.png" alt="Interview guide — CustDev Apartments: the guide and 14 session transcripts in one doc"></div>
+      <figcaption class="cap">The interview guide and 14 session transcripts.</figcaption>
+    </figure>
+    <figure class="media">
+      <div class="plate"><img src="assets/miro.png" alt="Synthesis board: problems and requests from the interviews, with ideas and solutions underneath"></div>
+      <figcaption class="cap">The synthesis board: stars and likes mark what made it into the backlog.</figcaption>
+    </figure>
+
+    <!-- ================= СТРАТЕГИЯ ================= -->
+    <section class="sec after-media">
+      <h2>Delivery strategy</h2>
+      <div class="body">
+        <p>Every major block became a separate engineering task and a <strong>separate A/B test</strong>: the page was updated without a big-bang release, and every test left knowledge behind. Metrics on two levels: blocks — by conversion to the booking form; the project as a whole — by conversion to bookings. Test results are under each block below.</p>
+      </div>
+    </section>
+
+    <!-- ================= ПОГРУЖЕНИЕ: ОТЕЛИ ================= -->
+    <section class="sec">
+      <h2>Deep dive: room &amp;&nbsp;rate selection</h2>
+      <div class="body">
+        <p>The decision point. The paths diverged: hotels have many rates — people <em>compare</em> them; apartments have a single rate — the only differences are cancellation and payment. Two solutions, two tests.</p>
+        <p class="sub">Hotels: comparing instead of reading</p>
+        <p>The interviews showed rate selection was the most confusing step. Rates were laid out as rows, conditions as text in composite cells: to spot the differences you had to read every row in full; some people discovered only after booking that the &ldquo;included breakfast&rdquo; wasn&rsquo;t there.</p>
+        <p><strong>Choosing a rate is a search for differences. In the old block you had to read them out: what was identical and what was different looked the same.</strong></p>
+        <p>The solution — rates as vertical cards side by side:</p>
+        <ul>
+          <li><strong>every condition gets its own slot,</strong> aligned across the cards: one glance compares one parameter across all rates;</li>
+          <li><strong>meaningful differences are highlighted</strong> — what differs is visible before reading;</li>
+          <li><strong>room photos and amenities sit in a column on the left,</strong> leaving only the rates on the right.</li>
+        </ul>
+      </div>
+    </section>
+
+    <figure class="media bleed">
+      <img src="assets/oldnew.png?v=3" alt="Before and after: rates as rows vs. cards with aligned slots">
+    </figure>
+    <section class="sec after-media" style="margin-bottom:80px">
+      <div></div>
+      <div class="body">
+        <p><strong>Hotels: +5% conversion to the booking form</strong> — a separate A/B test. The block became the standard for room and rate selection.</p>
+      </div>
+    </section>
+    <figure class="media">
+      <img src="assets/specs.png" alt="Specs for the new block: empty states, row alignment, amenities on tap, sidebar states">
+      <figcaption class="cap">Specs, specs, specs.</figcaption>
+    </figure>
+
+    <div class="band">
+      <section class="sec">
+        <div></div>
+        <div class="body">
+          <p>One more proof of a job well done is when it turns into an industry trend: Aviasales, one of the biggest travel-tech players, tested horizontal rate cards inspired by our design — and uses them to this day.</p>
+          <p class="quote">A former colleague, product manager — now at Aviasales: &ldquo;still testing it on web&rdquo; — &ldquo;(filling me in on the theft of your rates)&rdquo;.</p>
+        </div>
+      </section>
+      <figure class="media">
+        <img src="assets/message.png" alt="Message from a former colleague at Aviasales: a screenshot of their hotel page with the reused rate-card block" style="border-radius:2.2vw;border:1px solid #e0e0e0">
+      </figure>
+    </div>
+
+    <!-- ================= АПАРТАМЕНТЫ ================= -->
+    <section class="sec after-media">
+      <h2>Apartments: rate selection only</h2>
+      <div class="body">
+        <p><strong>In an apartment there is no room to choose — the property is the room.</strong> All that remains is cancellation and payment, and the hotel-style room-and-rate block is overkill for that: in the interviews people recalled this step as a breakage — &ldquo;what am I choosing here?&rdquo;. Respondents got lost among the rates and couldn&rsquo;t tell whether it was really the same apartment: the photos in the block seemed to match the ones above on the page — but not all of them did.</p>
+        <p>The solution: the selection block was <strong>removed entirely</strong>; rate conditions became toggles inside a single sticky booking block with the price and the button. This was possible thanks to our own extranet: apartments come directly from hosts, and we control the rate structure ourselves.</p>
+      </div>
+    </section>
+
+    <figure class="media">
+      <img src="assets/sidebar.png" alt="After: a single booking block — dates, cancellation and payment as toggles, total price and the button">
+    </figure>
+    <section class="sec after-media">
+      <div></div>
+      <div class="body">
+        <p><strong>Apartments: +9% conversion to the booking form</strong> — the strongest test of the project.</p>
+      </div>
+    </section>
+
+    <!-- ================= ШАПКА И ГАЛЕРЕЯ ================= -->
+    <section class="sec">
+      <h2>Highlight: header &amp;&nbsp;gallery</h2>
+      <div class="body">
+        <p>People choose a place to stay with their eyes, yet the gallery kept getting criticised in the interviews: the photos were too small — to make anything out, you had to open the fullscreen view right away.</p>
+        <ul>
+          <li><strong>freed up space for the gallery:</strong> cleaned up the UI and moved the reviews-and-rating carousel lower — the photos got noticeably bigger;</li>
+          <li><strong>moved amenities inside the expanded gallery:</strong> a frequent task for respondents was hunting for an apartment&rsquo;s features in the photos and checking them against the listed amenities; they used to jump between blocks for that — now the photos and the list sit side by side, and the answer is right there.</li>
+        </ul>
+      </div>
+    </section>
+
+    <figure class="media bleed" style="margin-bottom:3px">
+      <img src="assets/oldnew-gallery-1.png?v=2" alt="Before and after: header and gallery, the main page view">
+    </figure>
+    <figure class="media bleed" style="margin-top:0">
+      <img src="assets/oldnew-gallery.png?v=4" alt="Before and after: the old header with a small gallery vs. the new header with a large one">
+    </figure>
+    <section class="sec after-media">
+      <div></div>
+      <div class="body">
+        <p><strong>Header and gallery: +2.9% conversion to the booking form</strong> — a separate A/B test.</p>
+      </div>
+    </section>
+
+    <!-- ================= РЕЗУЛЬТАТЫ И ВЫВОДЫ ================= -->
+    <section class="sec after-media">
+      <h2>Results</h2>
+      <div class="body">
+        <ul>
+          <li><strong>+5% / +9% / +2.9%</strong> in separate A/B tests — conversion to the booking form;</li>
+          <li>in total, <strong>+7% to bookings</strong> → <strong>+$1.8M</strong> of additional revenue per year;</li>
+          <li>the page is a single system: blocks are reused across hotels and apartments, and new property types fit in without a redo.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>Takeaways</h2>
+      <div class="body">
+        <ul>
+          <li><strong>A resource window is a legitimate reason for a project:</strong> it started with an opportunity, and analytics plus research found where to aim it.</li>
+          <li><strong>One research corpus for the whole project:</strong> 14 interviews were enough for both the rates and the gallery.</li>
+          <li><strong>Shipping in parts with separate tests</strong> turns a redesign into a series of verifiable bets.</li>
+          <li><strong>Sometimes the best solution is to remove a block, not to improve it:</strong> on apartments this delivered more than the redesigned comparison did on hotels.</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <div class="casenav">
+      <span></span>
+      <a href="case-acquiring.html">Next Case →</a>
+    </div>
+
+    <footer class="footer-band">
+      <div class="cta">Let&rsquo;s do great things together</div>
+      <div class="links">
+        <a href="https://www.linkedin.com/in/dim-ergashev/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://t.me/dimqaer" target="_blank" rel="noopener">Telegram</a>
+        <a href="mailto:dim.ergashev@gmail.com">dim.ergashev@gmail.com</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+  /* простая галерея по тапу на картинку — только мобилка (<600px) */
+  (function(){
+    var imgs = Array.prototype.slice.call(document.querySelectorAll('.media img, .plate img'));
+    if (!imgs.length) return;
+    var overlay = null;
+    function close(){ if (overlay){ overlay.remove(); overlay = null; document.body.style.overflow = ''; } }
+    function open(idx){
+      overlay = document.createElement('div');
+      overlay.className = 'gal';
+      overlay.innerHTML = '<button class="gal-close" aria-label="Close">✕</button><div class="gal-strip">' +
+        imgs.map(function(im){ return '<div class="gal-slide"><img src="' + im.src + '"></div>'; }).join('') + '</div>';
+      document.body.appendChild(overlay);
+      document.body.style.overflow = 'hidden';
+      overlay.querySelector('.gal-close').addEventListener('click', close);
+      var strip = overlay.querySelector('.gal-strip');
+      strip.scrollLeft = strip.clientWidth * idx;
+    }
+    imgs.forEach(function(im, i){
+      im.addEventListener('click', function(){
+        if (window.matchMedia('(max-width:600px)').matches) open(i);
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

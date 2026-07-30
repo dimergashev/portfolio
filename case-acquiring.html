@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internet Acquiring · Dim Ergashev</title>
+<style>
+  /* ======== Сетка и типографика — как в case-hotel-page-rm-short ======== */
+  :root{
+    --ink:#333333;
+    --dim:rgba(51,51,51,.8);
+    --plate:#f7f7f7;
+    --pad:1.67vw;   /* поля как на главной */
+    --sans:"Inter",-apple-system,system-ui,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    background:#fff;color:var(--ink);
+    font-family:var(--sans);font-weight:400;
+    font-size:20px;line-height:28px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  a:hover{opacity:.7;}
+  .wrap{padding:22px var(--pad) 80px;}
+
+  /* ---------- Top bar: как на главной — липкая, во всю ширину ---------- */
+  .top{
+    position:sticky;top:0;z-index:50;
+    background:#fff;
+    display:flex;align-items:center;justify-content:space-between;
+    font-weight:500;
+    margin:0 calc(0px - var(--pad));
+    padding:18px var(--pad);
+  }
+  .top .brand{display:flex;align-items:center;gap:10px;font-size:22px;letter-spacing:-.01em;transition:color .2s;}
+  .top .brand:hover{color:#8c8c8c;}
+  .top nav{display:flex;gap:22px;font-size:22px;letter-spacing:-.01em;}
+  .top nav a{transition:color .2s;}
+  .top nav a:hover{color:#8c8c8c;opacity:1;}
+
+  .back{display:inline-block;margin-top:72px;color:var(--dim);}
+
+  /* ---------- H1 с иконкой ---------- */
+  .h1row{display:flex;align-items:center;gap:22px;margin:28px 0 56px;}
+  .h1row .icon{width:64px;height:64px;border-radius:14px;flex:none;object-fit:cover;}
+  h1{font-size:48px;line-height:56px;font-weight:400;letter-spacing:-.01em;}
+
+  /* ---------- Секции ---------- */
+  .sec{
+    display:grid;grid-template-columns:calc(48.33vw - 40px) 1fr;gap:40px;   /* текст на 50vw, как в кейсе Островка */
+    margin:110px 0;align-items:start;
+  }
+  .sec.after-media{margin-top:80px;}
+  h2{font-size:32px;line-height:32px;font-weight:400;}
+  .body{max-width:1025px;}
+  .body p{margin-bottom:28px;}
+  .body p:last-child{margin-bottom:0;}
+  .body ul{list-style:none;}
+  .body li{margin:16px 0;}
+  .body li::before{content:"✦  ";white-space:pre;}
+  strong{font-weight:600;}
+  .sub{font-weight:600;margin:0 0 12px;}
+
+  /* ---------- Impact-строки ---------- */
+  .imp{display:grid;grid-template-columns:280px 1fr;gap:28px;margin:18px 0;}
+  .imp .m{font-weight:600;}
+
+  /* ---------- Медиа ---------- */
+  .media{margin:72px 0;}
+  /* картинка, относящаяся к тексту выше, прижата к нему сильнее, чем внешний верхний отступ */
+  .sec:has(+ .media){margin-bottom:44px;}
+  .sec + .media{margin-top:44px;}
+  .media img{width:100%;display:block;border-radius:24px;}
+  .media.bleed{margin-left:calc(0px - var(--pad));margin-right:calc(0px - var(--pad));}
+  .media.bleed img{border-radius:0;}
+  .plate{background:var(--plate);border-radius:24px;padding:clamp(24px,4vw,64px);}
+  .plate img{border-radius:12px;}
+  .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start;}
+  .cap{font-size:15px;line-height:1.5;color:var(--dim);margin-top:14px;}
+
+  /* ---------- Footer ---------- */
+  .casenav{display:flex;justify-content:space-between;gap:24px;font-size:32px;line-height:32px;margin:120px 0 0;}
+  .footer-band{
+    background:var(--plate);
+    margin:120px calc(0px - var(--pad)) -80px;   /* во всю ширину и вплотную к низу страницы */
+    padding:110px var(--pad) 56px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;
+  }
+  .footer-band .cta{font-size:48px;line-height:56px;}
+  .footer-band .links{display:flex;gap:36px;font-size:16px;line-height:24px;padding-bottom:10px;}
+
+  @media (max-width:800px){
+    body{font-size:18px;line-height:26px;}
+    .sec{grid-template-columns:1fr;gap:20px;margin:72px 0;}
+    h1{font-size:34px;line-height:40px;}
+    h2{font-size:26px;line-height:28px;}
+    .imp{grid-template-columns:1fr;gap:6px;}
+    .pair{grid-template-columns:1fr;}
+    .footer-band{flex-direction:column;align-items:flex-start;padding-top:64px;}
+    .footer-band .cta{font-size:32px;line-height:38px;}
+    .footer-band .links{flex-wrap:wrap;gap:20px;padding-bottom:0;}
+  }
+
+  /* ---------- Мобильный адаптив (<600px) ---------- */
+  @media (max-width:600px){
+    :root{--pad:16px;}
+    .back{margin-top:36px;}
+    .h1row{flex-direction:column;align-items:flex-start;gap:14px;margin:20px 0 36px;}   /* иконка над заголовком */
+    .sec{margin:48px 0;gap:12px;}
+    .sec.after-media{margin-top:40px;}
+    .sec:has(+ .media){margin-bottom:20px;}
+    .sec + .media{margin-top:20px;}
+    .media{margin:32px 0;}
+    .media img{border-radius:0;}                      /* без скруглений */
+    .plate{border-radius:16px;padding:20px 12px;}
+    .plate img{border-radius:0;}
+    .band{margin-top:56px;padding:40px var(--pad);}
+    .band .sec{margin:0 0 20px;}
+    .footer-band{margin-top:56px;padding:48px var(--pad) 32px;}
+    .casenav{margin-top:56px;font-size:24px;line-height:28px;}
+  }
+
+  /* ---------- Галерея по тапу (мобилка) ---------- */
+  .gal{position:fixed;inset:0;background:#fff;z-index:100;display:flex;}
+  .gal-close{position:absolute;top:12px;right:12px;z-index:2;font-size:18px;line-height:1;background:#131211;color:#fff;border:0;border-radius:999px;width:44px;height:44px;cursor:pointer;}
+  .gal-strip{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;align-items:center;scrollbar-width:none;}
+  .gal-strip::-webkit-scrollbar{display:none;}
+  .gal-slide{flex:0 0 100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;padding:16px;}
+  .gal-slide img{max-width:100%;max-height:86vh;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <a class="brand" href="index.html">Dim Ergashev</a>
+      <nav><a href="https://drive.google.com/file/d/1pgdDutoTozPM2fLYUc_o0v_Ura2OFSxa/view?usp=sharing" target="_blank" rel="noopener">CV</a></nav>
+    </header>
+
+    <a class="back" href="index.html">← Back</a>
+
+    <div class="h1row">
+      <img class="icon" src="assets/acq/icon.png" alt="Tinkoff Kassa">
+      <h1>Redesign merchant&rsquo;s personal account</h1>
+    </div>
+
+    <!-- Hero -->
+    <figure class="media" style="margin-top:0">
+      <img src="assets/acq/hero.png" alt="New merchant's personal account: dashboard and new payment link screens">
+    </figure>
+
+    <!-- ================= CONTEXT ================= -->
+    <section class="sec">
+      <h2>Context</h2>
+      <div class="body">
+        <p><strong>Tinkoff Kassa</strong> is a top-2 acquirer in Russia with 300k+ merchants. With the help of our service merchants accept payments online, issue invoices and manage their transactions and orders in the interface of personal account</p>
+      </div>
+    </section>
+
+    <!-- ================= PROBLEMS ================= -->
+    <section class="sec">
+      <h2>Problems</h2>
+      <div class="body">
+        <ul style="margin:0">
+          <li>The first version of the personal account was made more than 7 years ago and is no longer functional or consistent with the tinkoff ecosystem</li>
+          <li>There is no understanding of exactly how merchants use the personal account, what is important to them</li>
+          <li>No mobile version available</li>
+          <li>Small retention</li>
+        </ul>
+      </div>
+    </section>
+
+    <figure class="media bleed">
+      <img src="assets/acq/old.png" alt="The old version of the personal account">
+    </figure>
+
+    <!-- ================= TO DO ================= -->
+    <section class="sec after-media">
+      <h2>To do</h2>
+      <div class="body">
+        <p>Conduct research and identify the main usage scenarios of the personal account, gather insights and build a new version of the interface based on them.</p>
+      </div>
+    </section>
+
+    <!-- ================= RESEARCH ================= -->
+    <section class="sec">
+      <h2>Research</h2>
+      <div class="body">
+        <p>Conducted 12 in-depth interviews with different categories of users and measured CSAT.<br>Key Insights:</p>
+        <ul>
+          <li>Merchant visits personal account to view or confirm recent transactions and refunds, invoice, make refunds</li>
+          <li>80% don&rsquo;t use analytics because they are difficult to use</li>
+          <li>Need the amount of turnover</li>
+          <li>Need a mobile version</li>
+          <li>Inconvenient billing, especially when there are a lot of items, you have to enter it yourself piece by piece</li>
+        </ul>
+      </div>
+    </section>
+
+    <figure class="media bleed" style="background:var(--plate);padding:72px var(--pad)">
+      <img src="assets/acq/research.png" alt="Research: interviews and CSAT measurement">
+    </figure>
+
+    <!-- ================= SOLUTION ================= -->
+    <section class="sec after-media">
+      <h2>Solution</h2>
+      <div class="body">
+        <p class="sub">Main page</p>
+        <ul style="margin:0">
+          <li>Total turnover for all shops and individually</li>
+          <li>Quick actions that cover the most frequent merchant scenarios</li>
+          <li>Recent transactions and payouts</li>
+          <li>Easy-to-understand analytics with key metrics placed at the top</li>
+        </ul>
+      </div>
+    </section>
+
+    <figure class="media">
+      <img src="assets/acq/sol1.png" alt="Main page: turnover, quick actions, recent transactions and payouts">
+    </figure>
+    <section class="sec after-media">
+      <div></div>
+      <div class="body">
+        <p class="sub">Transactions</p>
+        <ul style="margin:0">
+          <li>The main functionality has been moved to the top (search and filter by status)</li>
+          <li>Ability to personalise the table by customising columns</li>
+          <li>Transaction detail including list of items</li>
+        </ul>
+      </div>
+    </section>
+
+    <figure class="media">
+      <img src="assets/acq/sol2.png" alt="Transactions: search and filter on top, customisable table">
+    </figure>
+    <figure class="media">
+      <img src="assets/acq/sol3.png" alt="Transaction detail including list of items and history">
+    </figure>
+
+    <section class="sec after-media">
+      <div></div>
+      <div class="body">
+        <p class="sub">Payment links</p>
+        <ul style="margin:0">
+          <li>We have added the ability to upload items piece by piece or using an excel file, now when issuing a new invoice you can select a product or service from the list and do not have to re-enter each time. Each new item added when issuing a new invoice will be saved for future use</li>
+        </ul>
+      </div>
+    </section>
+
+    <figure class="media">
+      <img src="assets/acq/sol4.png" alt="New payment link: fiscal receipt and goods list">
+    </figure>
+    <figure class="media">
+      <img src="assets/acq/sol5.png" alt="Payment links: goods and services library">
+    </figure>
+
+    <section class="sec after-media">
+      <div></div>
+      <div class="body">
+        <p class="sub">Mobile version</p>
+        <ul style="margin:0">
+          <li>All layouts were adapted for comfortable use on mobile devices — the previous version had no mobile adaptation at all</li>
+        </ul>
+      </div>
+    </section>
+
+    <figure class="media">
+      <div class="plate" style="padding:40px 0">
+        <img src="assets/acq/sol6.png" alt="Mobile version of the personal account" style="border-radius:0">
+      </div>
+    </figure>
+
+    <!-- ================= IMPACT ================= -->
+    <section class="sec after-media">
+      <h2>Impact</h2>
+      <div class="body">
+        <div class="imp" style="margin-top:0"><span class="m">CSAT 4.2 → 4.5</span><span>Merchants rated the new version of the personal account higher</span></div>
+        <div class="imp"><span class="m">Retention +15%</span><span>Merchants visited the homepage more often, including from mobile devices</span></div>
+        <div class="imp"><span class="m">Support calls −18%</span><span>The interface is now more intuitive, with transparent analytics and quick actions on the home screen</span></div>
+      </div>
+    </section>
+
+    <div class="casenav">
+      <a href="case-hotel-page-rm-short.html">← Previous Case</a>
+      <a href="case-payment-form.html">Next Case →</a>
+    </div>
+
+    <footer class="footer-band">
+      <div class="cta">Let&rsquo;s do great things together</div>
+      <div class="links">
+        <a href="https://www.linkedin.com/in/dim-ergashev/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://t.me/dimqaer" target="_blank" rel="noopener">Telegram</a>
+        <a href="mailto:dim.ergashev@gmail.com">dim.ergashev@gmail.com</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+  /* простая галерея по тапу на картинку — только мобилка (<600px) */
+  (function(){
+    var imgs = Array.prototype.slice.call(document.querySelectorAll('.media img, .plate img'));
+    if (!imgs.length) return;
+    var overlay = null;
+    function close(){ if (overlay){ overlay.remove(); overlay = null; document.body.style.overflow = ''; } }
+    function open(idx){
+      overlay = document.createElement('div');
+      overlay.className = 'gal';
+      overlay.innerHTML = '<button class="gal-close" aria-label="Close">✕</button><div class="gal-strip">' +
+        imgs.map(function(im){ return '<div class="gal-slide"><img src="' + im.src + '"></div>'; }).join('') + '</div>';
+      document.body.appendChild(overlay);
+      document.body.style.overflow = 'hidden';
+      overlay.querySelector('.gal-close').addEventListener('click', close);
+      var strip = overlay.querySelector('.gal-strip');
+      strip.scrollLeft = strip.clientWidth * idx;
+    }
+    imgs.forEach(function(im, i){
+      im.addEventListener('click', function(){
+        if (window.matchMedia('(max-width:600px)').matches) open(i);
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
