@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>Дим Эргашев — собеседование по дизайну</title>
+<meta name="description" content="Дим Эргашев, продуктовый дизайнер. Собеседование по дизайну, Revolut, 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+/* ==========================================================
+   Tokens — 8px base, 12-col grid, one accent
+   ========================================================== */
+:root{
+  --paper:#F7F7F8;
+  --ink:#191C1F;
+  --ink-2:#3C4047;
+  --mute:#676B73;
+  --line:rgba(25,28,31,.14);
+  --line-strong:#191C1F;
+  --accent:#0666EB;
+  --hatch:rgba(25,28,31,.06);
+
+  --u:8px;
+  --gutter:24px;
+  --pad-x:56px;
+  --maxw:1440px;
+  --sec-gap:160px;   /* between major sections */
+  --sub-gap:96px;    /* between subsections */
+  --nav-h:48px;
+
+  --f-display:"Inter Tight","Inter",system-ui,sans-serif;
+  --f-text:"Inter",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--f-text);font-size:17px;line-height:1.55;
+  font-feature-settings:"ss01","cv11";
+  -webkit-font-smoothing:antialiased;
+  min-width:1280px;
+  counter-reset:fig;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4,p,ul,ol,figure,blockquote{margin:0}
+ul,ol{padding:0;list-style:none}
+::selection{background:var(--accent);color:#fff}
+
+/* ==========================================================
+   Layout primitives
+   ========================================================== */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad-x);position:relative}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
+.c1-7{grid-column:1 / span 7}
+.c1-8{grid-column:1 / span 8}
+.c1-12{grid-column:1 / -1}
+.c3-8{grid-column:3 / span 6}
+.c3-10{grid-column:3 / span 8}
+.c3-12{grid-column:3 / -1}
+.c9-12{grid-column:9 / -1}
+.c3-5{grid-column:3 / span 3}
+.c6-8{grid-column:6 / span 3}
+.c1-2{grid-column:1 / span 2}
+.c1-4{grid-column:1 / span 4}
+.c5-12{grid-column:5 / -1}
+.ut th,.ut td{text-align:right;font-variant-numeric:tabular-nums;padding:8px 0 8px 16px}
+.ut th[scope=row],.ut th[scope=col]:first-child{text-align:left;padding-left:0}
+.ut thead th{width:auto;border-top:0;padding-top:0}
+.ut td{font-size:15px}
+.ut .ut__hi{color:var(--accent);font-weight:500}
+.ut .ut__sum th,.ut .ut__sum td{color:var(--ink);font-weight:500}
+.ut .ut__sum:first-of-type th,.ut .ut__sum:first-of-type td{border-top:1px solid var(--ink)}
+.spec.ut-meta th{width:110px}
+.spec.ut-meta td{text-align:left;white-space:normal}
+
+
+main{position:relative;z-index:1}
+
+
+/* ==========================================================
+   Type
+   ========================================================== */
+.mono,.meta,.eyebrow,.nav,figcaption,.todo__label,.kv dt{
+  font-family:var(--f-mono);font-size:12px;line-height:1.5;
+  letter-spacing:.02em;text-transform:uppercase;
+}
+.display{
+  font-family:var(--f-display);font-weight:600;
+  font-size:clamp(88px,9.6vw,152px);line-height:.9;letter-spacing:-.045em;
+}
+.h2{
+  font-family:var(--f-display);font-weight:600;
+  font-size:clamp(64px,7.4vw,120px);line-height:.92;letter-spacing:-.04em;
+}
+.h3{
+  font-family:var(--f-display);font-weight:600;
+  font-size:clamp(36px,3.4vw,52px);line-height:1;letter-spacing:-.03em;
+}
+.h4{
+  font-family:var(--f-display);font-weight:600;
+  font-size:24px;line-height:1.15;letter-spacing:-.015em;
+}
+.lead{font-size:24px;line-height:1.4;letter-spacing:-.01em;color:var(--ink)}
+.body{color:var(--ink-2);max-width:62ch}
+.body p+p{margin-top:16px}
+.num,.stat__v,.toc__time,.sec-num,.sub__num{font-variant-numeric:tabular-nums lining-nums}
+.mute{color:var(--mute)}
+
+/* ==========================================================
+   Nav + progress
+   ========================================================== */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:60}
+.nav{
+  position:sticky;top:0;z-index:50;height:var(--nav-h);
+  background:var(--paper);border-bottom:1px solid var(--line-strong);
+}
+.nav .wrap{height:100%}
+.nav .grid{height:100%;align-items:center}
+.nav__name{grid-column:1 / span 3;font-weight:500;text-decoration:none}
+.nav__links{grid-column:4 / span 6;display:flex;gap:24px}
+.nav__links a{text-decoration:none;color:var(--mute);padding:4px 0;border-bottom:1px solid transparent}
+.nav__links a:hover{color:var(--ink)}
+.nav__links a.is-active{color:var(--ink);border-bottom-color:var(--accent)}
+.nav__right{grid-column:10 / -1;display:flex;justify-content:flex-end;gap:16px;align-items:center}
+.nav__counter{color:var(--ink)}
+.nav__counter b{font-weight:500;color:var(--accent)}
+.timer{
+  font:inherit;text-transform:inherit;letter-spacing:inherit;
+  background:none;border:1px solid var(--line-strong);border-radius:2px;
+  padding:2px 8px;cursor:pointer;color:var(--ink);font-variant-numeric:tabular-nums;
+}
+.timer.is-running{background:var(--ink);color:var(--paper)}
+
+/* ==========================================================
+   Sections
+   ========================================================== */
+section{scroll-margin-top:var(--nav-h)}
+.sec{padding-top:var(--sec-gap)}
+.sec-head{border-top:1px solid var(--line-strong);padding-top:24px;row-gap:48px}
+.sec-head__rubric{grid-column:1 / span 8;display:flex;gap:24px}
+.sec-head__meta{grid-column:9 / -1}
+.sec-num{
+  grid-column:1 / span 2;font-family:var(--f-display);font-weight:600;
+  font-size:clamp(64px,7.4vw,120px);line-height:.92;letter-spacing:-.04em;color:var(--accent);
+}
+.sec-head .h2{grid-column:3 / span 6}
+.sec-head .lead{grid-column:3 / span 6}
+#ostrovok .sec-head .h2{font-size:clamp(60px,6.8vw,110px)} /* RU: «апартаментов» не влезает в 6 колонок */
+
+/* key/value meta block (right rail) */
+.kv{display:grid;grid-template-columns:1fr;row-gap:0;align-self:start;align-content:start}
+.kv div{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:8px 0;border-top:1px solid var(--line)}
+.kv div:last-child{border-bottom:1px solid var(--line)}
+.kv dt{color:var(--mute)}
+.kv dd{margin:0;font-size:14px;line-height:1.45}
+
+/* subsections 2.1 … */
+.sub{padding-top:var(--sub-gap)}
+.sub__head{border-top:1px solid var(--line);padding-top:16px;row-gap:24px;align-items:start}
+.sub__num{grid-column:1 / span 2;font-family:var(--f-mono);font-size:14px;color:var(--accent)}
+.sub__head .h3{grid-column:1 / span 8}
+.sub__head .meta{grid-column:9 / -1;text-align:left;color:var(--mute)}
+.sub__body{margin-top:48px;row-gap:48px}
+
+/* problem / solution / result stack */
+.psr{display:grid;row-gap:0}
+.psr > div{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:16px 0;border-top:1px solid var(--line)}
+.psr > div:last-child{border-bottom:1px solid var(--line)}
+.psr dt{font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.02em;color:var(--mute);padding-top:3px}
+.psr dd{margin:0;color:var(--ink-2)}
+.psr .res dd{font-family:var(--f-display);font-weight:600;font-size:40px;line-height:1;letter-spacing:-.03em;color:var(--ink)}
+
+/* bullets with hairline + index */
+.list{counter-reset:li}
+.list li{counter-increment:li;display:grid;grid-template-columns:48px 1fr;gap:16px;padding:12px 0;border-top:1px solid var(--line);color:var(--ink-2)}
+.list li:last-child{border-bottom:1px solid var(--line)}
+.list li::before{content:counter(li,decimal-leading-zero);font-family:var(--f-mono);font-size:12px;color:var(--mute);padding-top:4px}
+
+/* ==========================================================
+   Figures
+   ========================================================== */
+figure{counter-increment:fig}
+figure .frame{border:1px solid var(--line);background:#fff;overflow:hidden}
+figure .frame img{width:100%;height:100%;object-fit:cover}
+figure .frame.contain img{object-fit:contain;background:#fff}
+figcaption{margin-top:12px;color:var(--mute);display:flex;gap:8px}
+figcaption::before{content:"Рис. " counter(fig,decimal-leading-zero) " —";color:var(--ink);white-space:nowrap}
+figure.bare{counter-increment:none}
+figure.bare img{width:100%;height:auto;display:block}
+.r-16x9{aspect-ratio:16/9}
+.r-4x3{aspect-ratio:4/3}
+.r-3x2{aspect-ratio:3/2}
+.r-1x1{aspect-ratio:1/1}
+.r-3x4{aspect-ratio:3/4}
+.r-21x9{aspect-ratio:21/9}
+.r-auto img{height:auto}
+
+/* ==========================================================
+   Placeholders (.todo) — part of the grid, not an eyesore
+   ========================================================== */
+.todo{
+  position:relative;border:1px solid var(--line-strong);border-radius:0;
+  background:
+    repeating-linear-gradient(135deg,transparent 0 11px,var(--hatch) 11px 12px),
+    var(--paper);
+  display:flex;align-items:flex-end;padding:16px;min-height:120px;
+}
+.todo::before{
+  content:"TODO";position:absolute;top:12px;left:16px;
+  font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;color:var(--accent);
+}
+.todo__label{color:var(--ink);background:var(--paper);padding:4px 8px;border:1px solid var(--line);max-width:48ch;text-transform:none;letter-spacing:0}
+.todo--inline{min-height:0;display:block;padding:40px 16px 16px}
+.todo--quote{min-height:0;padding:40px 16px 16px;display:block}
+.todo.todo--text{display:inline;border:0;background:none;padding:0;min-height:0;font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+.todo.todo--text::before{content:none}
+
+/* ==========================================================
+   Hero
+   ========================================================== */
+.hero{padding-top:64px}
+.hero__top{row-gap:24px;padding-bottom:96px}
+.hero__top .meta{color:var(--mute)}
+.hero__top .meta b{color:var(--ink);font-weight:500}
+.hero .display{grid-column:1 / -1;margin-bottom:56px;font-size:clamp(120px,12.4vw,184px);white-space:nowrap}
+.hero .display em{font-style:normal;color:var(--accent)}
+.hero .display{letter-spacing:0}
+.outro{padding-top:160px;padding-bottom:40px}
+.outro .display em{font-style:normal;color:var(--accent)}
+
+.hero__intro{grid-column:1 / -1}
+.hero__intro .lead{font-size:28px;line-height:1.35;letter-spacing:-.015em}
+.hero__meta{grid-column:9 / -1;margin-top:56px}
+
+.toc{margin-top:120px;border-top:1px solid var(--line-strong)}
+.toc__head{padding:12px 0;color:var(--mute)}
+.toc__row{
+  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);
+  align-items:baseline;padding:16px 0;border-top:1px solid var(--line);text-decoration:none;
+}
+.toc__row:last-child{border-bottom:1px solid var(--line-strong)}
+.toc__n{grid-column:1 / span 1;font-family:var(--f-mono);font-size:14px;color:var(--accent)}
+.toc__t{grid-column:2 / span 6;font-family:var(--f-display);font-weight:600;font-size:32px;line-height:1.1;letter-spacing:-.02em}
+.toc__d{grid-column:8 / span 3;color:var(--mute);font-size:14px}
+.toc__time{grid-column:11 / -1;text-align:right;font-family:var(--f-mono);font-size:14px}
+.toc__row:hover .toc__t{color:var(--accent)}
+.toc__bar{grid-column:1 / -1;display:flex;height:8px;margin-top:24px;gap:2px}
+.toc__bar i{display:block;background:var(--ink)}
+.toc__bar i.q{background:var(--line)}
+.toc__bar i.a{background:var(--accent)}
+
+/* ==========================================================
+   Stats
+   ========================================================== */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gutter);border-top:1px solid var(--line-strong)}
+.stat{padding-top:16px;border-right:1px solid var(--line);padding-right:16px}
+.stat:last-child{border-right:0}
+.stat__v{font-family:var(--f-display);font-weight:600;font-size:clamp(64px,6.4vw,104px);line-height:.9;letter-spacing:-.045em}
+.stat__v sup{font-size:.42em;vertical-align:top;position:relative;top:.18em;letter-spacing:-.02em}
+.stat__l{margin-top:16px;font-size:14px;color:var(--ink-2);max-width:24ch}
+.stat__src{margin-top:8px;color:var(--mute)}
+
+.how{display:flex;align-items:center;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.how span{flex:1;padding:24px 0;font-family:var(--f-display);font-weight:600;font-size:32px;letter-spacing:-.02em}
+.how span + span{padding-left:24px;border-left:1px solid var(--line)}
+.how span i{font-style:normal;font-family:var(--f-mono);font-size:12px;color:var(--accent);display:block;margin-bottom:8px;letter-spacing:.02em}
+
+/* sub-index inside case */
+.subindex{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line)}
+.subindex a{padding:12px 12px 16px 0;text-decoration:none;border-right:1px solid var(--line);margin-right:12px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between}
+.subindex a:last-child{border-right:0}
+.subindex a b{font-family:var(--f-mono);font-weight:400;font-size:12px;color:var(--accent)}
+.subindex a span{font-size:14px;line-height:1.3}
+.subindex a:hover span{text-decoration:underline;text-underline-offset:3px}
+
+/* quotes */
+.quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gutter)}
+.quote{border-top:2px solid var(--ink);padding-top:16px}
+.quote blockquote{font-family:var(--f-display);font-weight:600;font-size:28px;line-height:1.15;letter-spacing:-.02em}
+.quote p{margin-top:16px;font-size:14px;color:var(--ink-2)}
+.quote .meta{margin-top:12px;color:var(--mute)}
+
+/* two-level metrics diagram */
+.levels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gutter);row-gap:16px}
+.levels .lvl-proj{grid-column:1 / -1;border:1px solid var(--line-strong);padding:16px;display:flex;justify-content:space-between;align-items:baseline}
+.levels .lvl-blk{border:1px solid var(--line);padding:16px;background:#fff}
+.levels .lvl-blk b{display:block;font-family:var(--f-display);font-size:20px;font-weight:600;letter-spacing:-.01em;margin:8px 0 4px}
+.levels .lvl-blk .num{font-family:var(--f-display);font-weight:600;font-size:40px;letter-spacing:-.03em;line-height:1;margin-top:16px}
+
+/* edge cases */
+.edges{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gutter)}
+.edges .todo{aspect-ratio:4/3;min-height:0;flex-direction:column;align-items:flex-start;justify-content:flex-end}
+.edges .todo .h4{font-size:20px;margin-bottom:8px}
+
+/* columns: failed / stakeholders */
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--gutter)}
+.col{border-top:2px solid var(--ink);padding-top:16px}
+.col .h4{margin-bottom:16px}
+
+/* hypotheses (.draft): same text, dashed accent rule + badge; distinct from .todo (hatched, solid frame) */
+.draft{position:relative;border-left:1px dashed var(--accent);padding-left:16px}
+.draft::before{
+  content:"Гипотеза · проверить";display:inline-block;margin-bottom:12px;
+  font-family:var(--f-mono);font-size:12px;line-height:1.5;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--accent);border:1px dashed var(--accent);padding:2px 8px;
+}
+.fact-note{display:inline-block;margin-bottom:12px;font-family:var(--f-mono);font-size:12px;line-height:1.5;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line-strong);padding:2px 8px}
+.fact-note a{text-decoration:none}
+
+/* spec table (test design) */
+.spec{width:100%;border-collapse:collapse}
+.spec th,.spec td{text-align:left;vertical-align:top;padding:12px 0;border-top:1px solid var(--line)}
+.spec tr:last-child th,.spec tr:last-child td{border-bottom:1px solid var(--line)}
+.spec th{width:220px;padding-right:24px;font-family:var(--f-mono);font-weight:400;font-size:12px;line-height:1.5;letter-spacing:.02em;text-transform:uppercase;color:var(--mute);padding-top:15px}
+.spec td{color:var(--ink-2);font-size:15px;line-height:1.5}
+.spec td ul{display:flex;flex-wrap:wrap;gap:4px 16px}
+.spec td li::before{content:"· ";color:var(--mute)}
+
+/* funnel (2.1): SVG ribbon + HTML label layer, positions in % of width */
+.fnl{position:relative;padding:40px 0 52px}
+.fnl__svg{display:block;width:100%;height:240px}
+.fnl__mk{position:absolute;top:30px;height:262px;width:1px;background:var(--ink-2);transform:translateX(-50%)}
+.fnl__mk.is-hot{width:2px;background:var(--accent)}
+.fnl__pill{position:absolute;top:0;transform:translateX(-50%);font-family:var(--f-mono);font-size:12px;line-height:1.5;padding:4px 10px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.fnl__pill.is-hot{border:2px solid var(--accent);color:var(--accent);font-weight:500;padding:3px 9px}
+.fnl__loss{position:absolute;top:6px;transform:translateX(-50%);font-family:var(--f-mono);font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.fnl__loss.is-hot{color:var(--accent);font-weight:500}
+.fnl__name{position:absolute;bottom:0;transform:translateX(-50%);width:18%;text-align:center;font-family:var(--f-mono);font-size:12px;line-height:1.35;letter-spacing:.02em;text-transform:uppercase;color:var(--ink-2)}
+.fnl__focus{position:relative;height:96px;margin-top:12px}
+.fnl__bracket{position:absolute;left:50%;width:20%;top:0;height:10px;border:1px solid var(--accent);border-top:0}
+.fnl__hot{position:absolute;left:60%;top:22px;transform:translateX(-50%);white-space:nowrap;font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.fnl__focus .fact-note{position:absolute;left:60%;top:52px;transform:translateX(-50%);white-space:nowrap;margin:0}
+.fnl__legend{position:absolute;left:0;top:18px;display:flex;flex-direction:column;gap:6px;font-family:var(--f-mono);font-size:12px;color:var(--ink-2)}
+.fnl__legend span{display:flex;align-items:center;gap:8px}
+.fnl__legend i{display:inline-block;width:16px;height:10px}
+.funnel__out{margin-top:24px;font-size:17px;color:var(--ink)}
+.spec--compact th{width:auto;padding-right:16px}
+.spec--compact td{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* scenarios (2.8) */
+.scen{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gutter)}
+.scen__card{border-top:2px solid var(--ink);padding-top:16px}
+.scen__card.draft{border-left:1px dashed var(--accent)}
+.scen__card:not(.draft){padding-left:17px}
+.scen__n{font-family:var(--f-mono);font-size:14px;color:var(--accent);display:block;margin-bottom:8px}
+.scen__card .h4{margin-bottom:16px}
+.steps > div{display:grid;grid-template-columns:1fr;gap:4px;padding:10px 0;border-top:1px solid var(--line)}
+.steps dt{font-family:var(--f-mono);font-size:12px;letter-spacing:.02em;text-transform:uppercase;color:var(--mute)}
+.steps dd{margin:0;font-size:15px;line-height:1.45;color:var(--ink-2)}
+.steps .res dd{font-family:var(--f-display);font-weight:600;font-size:32px;line-height:1;letter-spacing:-.03em;color:var(--ink)}
+.todo-list li + li{margin-top:8px}
+
+/* role block (unnumbered) */
+.role .col .list{margin-top:0}
+.role .todo--inline{margin-top:16px}
+
+/* live Figma slot: 16:9, iframe fills the container once uncommented */
+.figma-embed{position:relative;aspect-ratio:16/9;border:1px solid var(--line);background:#fff;overflow:hidden}
+.figma-embed > .todo{position:absolute;inset:0;min-height:0;border:0}
+.figma-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+
+/* outcome */
+.outcome .stat__v{font-size:clamp(88px,9vw,144px)}
+
+/* craft gallery */
+.craft{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:64px}
+.craft .w7{grid-column:span 7}.craft .w5{grid-column:span 5}
+.craft .w4{grid-column:span 4}.craft .w6{grid-column:span 6}.craft .w12{grid-column:1 / -1}
+.craft .w8{grid-column:span 8}
+
+/* appendix */
+.appx a{text-decoration:none}
+.appx .toc__t{font-size:28px}
+.contacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gutter);border-top:1px solid var(--line-strong)}
+.contacts a{display:block;padding:16px 0 0;text-decoration:none}
+.contacts a span:last-child{display:block;font-family:var(--f-display);font-weight:600;font-size:32px;letter-spacing:-.02em;margin-top:8px;word-break:break-all}
+.contacts a:hover span:last-child{color:var(--accent)}
+
+.footer{padding:160px 0 48px}
+.footer .grid{border-top:1px solid var(--line-strong);padding-top:16px;color:var(--mute)}
+.footer .grid > *:last-child{grid-column:9 / -1}
+
+/* ==========================================================
+   Reveal
+   ========================================================== */
+.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.js .reveal.in{opacity:1;transform:none}
+.typed.is-typing::after{content:"";display:inline-block;width:.06em;height:.82em;margin-left:.04em;background:currentColor;vertical-align:-.06em;animation:caret 1s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1;transform:none;transition:none}
+}
+
+/* 1280 safety */
+@media (max-width:1360px){
+  :root{--pad-x:40px}
+  .nav__links{gap:16px}
+}
+@media print{
+  .nav,.progress{display:none}
+  .js .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="nav" role="banner">
+  <div class="wrap"><div class="grid">
+    <a class="nav__name" href="#intro">Дим Эргашев</a>
+    <nav class="nav__links" aria-label="Разделы">
+      <a href="#intro" data-sec="intro">00 Интро</a>
+      <a href="#who" data-sec="who">01 Кто я</a>
+      <a href="#ostrovok" data-sec="ostrovok">02 Ostrovok</a>
+      <a href="#kassa" data-sec="kassa">03 Kassa</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__counter"><b id="secCur">00</b> / 03 · <span id="secTime">~2 мин</span></span>
+      <button class="timer" id="timer" type="button" title="Секундомер для репетиции: клик — старт / пауза, двойной клик — сброс">00:00</button>
+    </div>
+  </div></div>
+</header>
+
+<main>
+
+<!-- ======================================================
+     00 — Hero
+     ====================================================== -->
+<section id="intro" class="hero" data-num="00" data-time="~2 мин">
+  <div class="wrap">
+    <div class="grid hero__top">
+      <p class="meta c1-7"><b>Дим Эргашев</b> — Продуктовый дизайнер</p>
+      <p class="meta c9-12">Собеседование по дизайну · Revolut · 2026</p>
+    </div>
+
+    <div class="grid">
+      <h1 class="display">Привет, <em class="typed" data-from="World!" data-to="Revolut!">Revolut!</em></h1>
+      <div class="hero__intro">
+        <p class="lead">Меня зовут Дим. Сегодня я расскажу вам про то, как я нашёл и переделал самую дорогую страницу воронки Ostrovok, и про платёжную форму с 30M+ MAU.</p>
+      </div>
+      <dl class="kv hero__meta">
+        <div><dt>Роль</dt><dd>Лид дизайна, ETG (Ostrovok)</dd></div>
+        <div><dt>До этого</dt><dd>Tinkoff Kassa — платежи</dd></div>
+        <div><dt>Формат</dt><dd>60 мин · 2 кейса + вопросы</dd></div>
+        <div><dt>Фокус</dt><dd>Сначала проблема, потом UI</dd></div>
+      </dl>
+    </div>
+
+    <nav class="toc" aria-label="Содержание">
+      <div class="grid toc__head mono"><span class="c1-7">Содержание</span><span class="c9-12" style="text-align:right">Время, мин</span></div>
+      <a class="toc__row" href="#who"><span class="toc__n">01</span><span class="toc__t">Кто я</span><span class="toc__d">7+ лет, ETG, Tinkoff; как я работаю</span><span class="toc__time">3</span></a>
+      <a class="toc__row" href="#ostrovok"><span class="toc__n">02</span><span class="toc__t">Ostrovok: страница отеля и апартаментов</span><span class="toc__d">Основной кейс целиком, 2.1–2.9</span><span class="toc__time">30–35</span></a>
+      <a class="toc__row" href="#kassa"><span class="toc__n">03</span><span class="toc__t">Tinkoff Kassa: платёжная форма</span><span class="toc__d">30M+ MAU, ограничения, данные</span><span class="toc__time">8–10</span></a>
+      <div class="toc__bar" aria-hidden="true" title="Доля от часа">
+        <i style="flex:3"></i><i class="a" style="flex:33"></i><i style="flex:9"></i>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<!-- ======================================================
+     01 — Who I am
+     ====================================================== -->
+<section id="who" class="sec" data-num="01" data-time="~3 мин">
+  <div class="wrap">
+    <div class="grid sec-head reveal">
+      <div class="sec-num">01</div>
+      <h2 class="h2">Кто я</h2>
+      <p class="meta c9-12 mute">~3 мин</p>
+      <p class="lead">Продуктовый дизайнер, 7+ лет. Лид дизайна в ETG (Ostrovok) — бронирование путешествий. До этого Tinkoff Kassa: платёжный сервис, которым пользуются 30M+ человек в месяц, и личный кабинет для 300k+ бизнесов.</p>
+      <dl class="kv c9-12">
+        <div><dt>Сейчас</dt><dd>Лид дизайна, ETG (Ostrovok)</dd></div>
+        <div><dt>До этого</dt><dd>Tinkoff Kassa — платёжная форма, личный кабинет бизнеса</dd></div>
+        <div><dt>Домены</dt><dd>Тревел, платежи, B2B</dd></div>
+        <div><dt>Опыт</dt><dd class="num">7+ лет</dd></div>
+      </dl>
+    </div>
+
+    <div class="stats reveal" style="margin-top:96px">
+      <div class="stat"><div class="stat__v">+7<sup>%</sup></div><p class="stat__l">бронирований после редизайна страницы отеля и апартаментов</p><p class="stat__src mono">Ostrovok · A/B</p></div>
+      <div class="stat"><div class="stat__v">+$1.8<sup>M</sup></div><p class="stat__l">в год, тот же проект</p><p class="stat__src mono">Ostrovok · оценка</p></div>
+      <div class="stat"><div class="stat__v">+16<sup>%</sup></div><p class="stat__l">оплат через Tinkoff Pay после редизайна платёжной формы</p><p class="stat__src mono">Tinkoff Kassa</p></div>
+      <div class="stat"><div class="stat__v">30<sup>M+</sup></div><p class="stat__l">пользователей платёжной формы в месяц</p><p class="stat__src mono">Tinkoff Kassa · MAU</p></div>
+    </div>
+
+    
+  </div>
+</section>
+
+<!-- ======================================================
+     02 — Case 1: Ostrovok
+     ====================================================== -->
+<section id="ostrovok" class="sec" data-num="02" data-time="~30–35 мин">
+  <div class="wrap">
+    <div class="grid sec-head reveal">
+      <div class="sec-num">02</div>
+      <h2 class="h2">Ostrovok: страница отеля и апартаментов</h2>
+      <dl class="kv c9-12" style="grid-row:span 2">
+        <div><dt>Время</dt><dd>~30–35 мин</dd></div>
+        <div><dt>Роль</dt><dd>Лид дизайна: исследование, стратегия, UI, спеки</dd></div>
+        <div><dt>Результат</dt><dd>+7% бронирований · +$1.8M/год</dd></div>
+      </dl>
+      <p class="lead">Редизайн самой дорогой страницы воронки. На странице отеля человек решает, платить или нет. Она годами не менялась, а апартаменты — быстро растущую долю инвентаря — втиснули в шаблон, сделанный под отели.</p>
+    </div>
+
+    <figure class="reveal" style="margin-top:96px">
+      <div class="frame r-auto"><img src="https://dimergashev.com/assets/111.png" alt="Страница отеля Ostrovok после редизайна"></div>
+      <figcaption>Страница отеля Ostrovok после редизайна</figcaption>
+    </figure>
+
+    <!-- Case 1: role (unnumbered) -->
+    <section id="role-ostrovok" class="sub role">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Моя роль и зона ответственности</h3>
+        <p class="meta">ownership</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <div class="c1-12 cols2">
+          <div class="col">
+            <p class="h4">Что решал я</p>
+            <ol class="list">
+              <li><span><b>Соло-дизайнер</b> всего проекта.</span></li>
+              <li><span>Приоритизация бэклога по данным воронки.</span></li>
+              <li><span>Гайд и проведение 14 интервью.</span></li>
+              <li><span>Стратегия выкатки частями — отдельный A/B-тест на каждый блок.</span></li>
+              <li><span>Решение убрать блок выбора у апартаментов, опираясь на наш экстранет.</span></li>
+              <li><span>Хендовер разработке.</span></li>
+            </ol>
+          </div>
+          <div class="col">
+            <p class="h4">Команда</p>
+            <ol class="list">
+              <li><span><b>PM</b> — метрики, аналитика воронки.</span></li>
+              <li><span><b>Аналитик</b> A/B-тестов.</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- 2.1 -->
+    <section id="s2-1" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Контекст и проблема</h3>
+        <p class="meta">~4 мин · Почему сейчас</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <div class="c3-8 body">
+          <p>Ostrovok — бренд Emerging Travel Group. После ухода Booking.com из России в 2022 году трафик резко вырос: компания собрала продуктовую команду из выходцев из бигтеха, и я пришёл лидить дизайн. Страница отеля, самая нагруженная точка воронки, устарела, а инженерных ресурсов переосмыслить её целиком никогда не хватало.</p>
+          <p>К концу года у команды страницы освободились ресурсы на следующие кварталы: либо входим в это окно с готовым редизайном, либо страница остаётся как есть на неопределённый срок. Главный триггер — апартаменты, растущий сегмент, под который страницу никогда не проектировали. При этом каждый блок задумывался переиспользуемым: одна система и для отелей, и для апартаментов.</p>
+          <p>Жалоб от пользователей не было. Была возможность сдвинуть конверсию, и точки роста нужно было найти самим.</p>
+        </div>
+        <div class="c9-12">
+          <p class="eyebrow mute" style="margin-bottom:12px">Ограничения</p>
+          <ol class="list">
+            <li><span><b>Успеть в окно.</b> Дизайн готов и согласован до праздников, иначе окно закрывается.</span></li>
+            <li><span><b>Не просадить конверсию.</b> Самая денежная точка воронки, поэтому выкатка частями и отдельный A/B-тест на каждый блок.</span></li>
+            <li><span><b>Улучшить UX и поднять метрики.</b> Конверсию в следующие шаги воронки и, в итоге, в бронирования.</span></li>
+          </ol>
+        </div>
+        <figure class="c1-12 bare" style="margin-top:60px">
+          <div class="fnl" role="img" aria-label="Воронка страницы отеля: 100% просмотров, 77% доскролл до тарифов, 31% взаимодействие с тарифом, 9.4% открыли форму, 3.9% оплатили. Потери между шагами: −23%, −60%, −70%, −59%. Трафик: мобилка 64%, десктоп 36%.">
+              <svg class="fnl__svg" viewBox="0 0 1200 240" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <rect x="0" y="10.0" width="1200" height="220" fill="#EBF2FD"/>
+                <path d="M0 10.0 L120 10.0 C240.0 10.0 240.0 35.3 360 35.3 C480.0 35.3 480.0 85.9 600 85.9 C720.0 85.9 720.0 109.7 840 109.7 C960.0 109.7 960.0 115.7 1080 115.7 L1200 115.7 L1200 124.3 L1080 124.3 C960.0 124.3 960.0 130.3 840 130.3 C720.0 130.3 720.0 154.1 600 154.1 C480.0 154.1 480.0 204.7 360 204.7 C240.0 204.7 240.0 230.0 120 230.0 L0 230.0Z" fill="#A9C9F8"/>
+                <path d="M0 80.4 L120 80.4 C240.0 80.4 240.0 89.5 360 89.5 C480.0 89.5 480.0 107.7 600 107.7 C720.0 107.7 720.0 116.3 840 116.3 C960.0 116.3 960.0 118.5 1080 118.5 L1200 118.5 L1200 121.5 L1080 121.5 C960.0 121.5 960.0 123.7 840 123.7 C720.0 123.7 720.0 132.3 600 132.3 C480.0 132.3 480.0 150.5 360 150.5 C240.0 150.5 240.0 159.6 120 159.6 L0 159.6Z" fill="#4B8FF1"/>
+              </svg>
+              <span class="fnl__mk" style="left:10%"></span>
+              <span class="fnl__mk" style="left:30%"></span>
+              <span class="fnl__mk is-hot" style="left:50%"></span>
+              <span class="fnl__mk is-hot" style="left:70%"></span>
+              <span class="fnl__mk" style="left:90%"></span>
+              <span class="fnl__pill" style="left:10%">100%</span>
+              <span class="fnl__pill" style="left:30%">77%</span>
+              <span class="fnl__pill is-hot" style="left:50%">31%</span>
+              <span class="fnl__pill is-hot" style="left:70%">9.4%</span>
+              <span class="fnl__pill" style="left:90%">3.9%</span>
+              <span class="fnl__loss" style="left:20%">−23%</span>
+              <span class="fnl__loss" style="left:40%">−60%</span>
+              <span class="fnl__loss is-hot" style="left:60%">−70%</span>
+              <span class="fnl__loss" style="left:80%">−59%</span>
+              <span class="fnl__name" style="left:10%">Просмотр страницы</span>
+              <span class="fnl__name" style="left:30%">Доскролл до тарифов</span>
+              <span class="fnl__name" style="left:50%">Взаимодействие с тарифом</span>
+              <span class="fnl__name" style="left:70%">Форма брони</span>
+              <span class="fnl__name" style="left:90%">Оплаченная бронь</span>
+          </div>
+          
+          <div class="grid" style="row-gap:24px;margin-top:24px">
+            <div class="c1-12">
+              <p class="funnel__out" style="margin-top:0">Самая большая потеря на одном шаге — выбор тарифа: уходят ~70% вовлечённых. Поэтому начали с тарифов, а не с галереи.</p>
+              
+            </div>
+            
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 2.2 -->
+    <section id="s2-2" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Почему именно это</h3>
+        <p class="meta">~2 мин · Приоритизация</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <div class="c3-8 body">
+          <p>«Переделать страницу отеля» — это не постановка проблемы. Мы подняли записи сессий и события в PostHog и посмотрели, где именно обрывается сессия. В 74% случаев последним блоком был выбор тарифа: люди доходили до номеров и не добирались до формы бронирования.</p>
+          <p>Поэтому первой ставкой стал блок номеров и тарифов. Шапка, галерея и сценарий апартаментов выросли из того же исследования.</p>
+        </div>
+        <div class="c9-12">
+          <div class="stat" style="border-right:0;padding-right:0;border-top:1px solid var(--line-strong)">
+            <div class="stat__v">74<sup>%</sup></div>
+            <p class="stat__l">сессий обрывались на блоке выбора тарифа</p>
+            <p class="stat__src mono">PostHog · последний блок перед концом сессии</p>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- 2.3 -->
+    <section id="s2-3" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Исследование</h3>
+        <p class="meta">~5 мин · 14 интервью</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <div class="c3-8 body">
+          <p>Один корпус данных на весь проект. Я написал гайд, и мы провели 14 custdev-интервью с людьми, которые регулярно путешествуют, но не пользуются Ostrovok и не работают в компании.</p>
+          <p>Гайд шёл от пошагового разбора последней реальной поездки (CJM) к общим паттернам: критерии выбора, поведение на выдаче и на странице объекта, ожидания от фото, причины ухода.</p>
+          <p>Синтез на доске превратился в бэклог изменений, а приоритеты задала аналитика воронки: сильнее всего теряли на шаге выбора тарифа. Порядок работ: сначала тарифы, потом шапка, галерея и остальные блоки.</p>
+        </div>
+        <dl class="kv c9-12">
+          <div><dt>Метод</dt><dd>Custdev-интервью</dd></div>
+          <div><dt>N</dt><dd class="num">14</dd></div>
+          <div><dt>Кто</dt><dd>Путешественники, не наши пользователи</dd></div>
+          <div><dt>Опора</dt><dd>Последняя поездка → паттерны</dd></div>
+        </dl>
+        <figure class="c1-7">
+          <div class="frame r-4x3"><img src="https://dimergashev.com/assets/guide.png" alt="Гайд интервью"></div>
+          <figcaption>Гайд интервью: от последней поездки к паттернам</figcaption>
+        </figure>
+        <figure class="c8-12" style="grid-column:8 / -1">
+          <div class="frame r-4x3"><img src="https://dimergashev.com/assets/miro.png" alt="Доска синтеза в Miro"></div>
+          <figcaption>Доска синтеза</figcaption>
+        </figure>
+      </div>
+
+      <div class="grid reveal" style="margin-top:96px;row-gap:32px">
+        <p class="eyebrow c1-2 mute">Инсайты, которые поменяли дизайн</p>
+        <div class="c3-12 quotes">
+          <div class="quote">
+            <blockquote>«А что я тут выбираю?»</blockquote>
+            <p>Гости апартаментов перед блоком тарифов с единственным вариантом. Шаг воспринимали как поломку. Отсюда решение убрать блок совсем.</p>
+            <p class="meta">Респондент · апартаменты → Апартаменты: убрать блок</p>
+          </div>
+          <div class="quote">
+            <blockquote>Апартаменты выбирают по фото, а галерея слишком мелкая</blockquote>
+            <p>Жильё выбирают глазами, но фото было не разобрать: люди сразу открывали полноэкранный режим. В апартаментах галерея — главный инструмент выбора.</p>
+            <p class="meta">Паттерн · апартаменты → Шапка и галерея</p>
+          </div>
+          <div class="quote">
+            <blockquote>Ищут заявленные удобства на фотографиях</blockquote>
+            <p>Частая задача респондентов: найти в фото то, что написано в списке удобств, и сверить. Для этого прыгали между блоками. Отсюда удобства внутри развёрнутой галереи.</p>
+            <p class="meta">Паттерн · отели и апартаменты → Шапка и галерея</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- 2.5 -->
+    <section id="s2-5" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Номера и тарифы (отели)</h3>
+        <p class="meta">~7 мин · +5%</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <dl class="psr c3-10">
+          <div><dt>Проблема</dt><dd>Интервью показали: выбор тарифа — самый запутанный шаг. Тарифы шли строками, условия — текстом в составных ячейках. Чтобы заметить разницу, нужно было прочитать каждую строку целиком: одинаковое и разное выглядело одинаково. Некоторые узнавали уже после брони, что «включённого завтрака» нет.</dd></div>
+          <div><dt>Решение</dt><dd>Выбор тарифа — это поиск различий. Тарифы стали вертикальными карточками рядом: у каждого условия свой слот, выровненный по всем карточкам, поэтому один взгляд сравнивает один параметр во всех тарифах; значимые отличия подсвечены и видны до чтения; фото номера и удобства ушли в колонку слева, справа остались только тарифы.</dd></div>
+          <div class="res"><dt>Результат</dt><dd>+5%</dd></div>
+        </dl>
+        <figure class="c1-12">
+          <div class="frame r-auto"><img src="assets/old-rates.jpg" alt="Старый блок номеров и тарифов: тарифы строками"></div>
+          <figcaption>Старый блок номеров и тарифов</figcaption>
+        </figure>
+        <figure class="c1-12">
+          <div class="figma-embed">
+            <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2F6yOwcK8odJbOaNZccc8UiY%2FApartments%3Fnode-id%3D19067-36846" allowfullscreen title="Живой прототип, Figma" loading="lazy"></iframe>
+          </div>
+          <figcaption>Живой прототип, Figma</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 2.6 -->
+    <section id="s2-6" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Апартаменты: убрать блок</h3>
+        <p class="meta">~4 мин · +9% · самый сильный тест</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <dl class="psr c3-10">
+          <div><dt>Проблема</dt><dd>В апартаментах нечего выбирать: объект и есть номер. Остаются только отмена и оплата, и отельный блок «номер + тариф» для этого избыточен. На интервью люди вспоминали этот шаг как поломку: «а что я тут выбираю?». Путались в тарифах и не понимали, тот ли это апартамент: фото в блоке вроде совпадали с фото выше по странице, но не все.</dd></div>
+          <div><dt>Решение</dt><dd>Блок выбора убрали целиком. Условия тарифа стали переключателями внутри одного sticky-блока бронирования с ценой и кнопкой. Это стало возможно благодаря собственному экстранету: апартаменты приходят напрямую от хостов, и структуру тарифов контролируем мы.</dd></div>
+          <div class="res"><dt>Результат</dt><dd>+9% <span class="mono mute" style="font-family:var(--f-mono);font-size:12px;letter-spacing:.02em;vertical-align:middle">самый сильный тест</span></dd></div>
+        </dl>
+        <div class="c3-12 body">
+          <p class="h4" style="margin-bottom:12px;color:var(--ink)">Как я пришёл к этой гипотезе</p>
+        </div>
+        <div class="c3-5 body">
+          <p class="mono mute" style="margin-bottom:8px">01 · Сигнал</p>
+          <p>В PostHog я смотрел записи сессий, где люди уходили с блока тарифов. В апартаментах картина отличалась: люди не сравнивали, а искали, что вообще нужно выбрать, и уходили. Задача в бэклоге звучала как «перерисовать карточки», но я решил сначала спросить, нужен ли выбор вообще.</p>
+        </div>
+        <div class="c6-8 body">
+          <p class="mono mute" style="margin-bottom:8px">02 · Данные</p>
+          <p>Пошёл к аналитикам и попросил распределение тарифов по апартаментам. Медианно у объекта один тариф, около 90% объектов. Значит, блок выбора для большинства был пустым шагом.</p>
+        </div>
+        <div class="c9-12 body">
+          <p class="mono mute" style="margin-bottom:8px">03 · Возможность</p>
+          <p>Апартаменты живут в нашем собственном экстранете (в отличие от отелей, которые приходят в разном формате от десятков поставщиков). Тарифы там структурированы и управляются чекбоксами: отмена, оплата и так далее в одной карточке. Поэтому условия можно превратить в тумблеры прямо в блоке бронирования.</p>
+        </div>
+        <div class="c3-12">
+          <div class="stat" style="border-right:0;padding-right:0"><div class="stat__v">~90<sup>%</sup></div><p class="stat__l">объектов с одним тарифом</p></div>
+        </div>
+        <div class="c3-12">
+          <p class="h4" style="margin-bottom:8px">Юзер-тест: три варианта</p>
+          <p class="body" style="margin-bottom:24px">Задача участникам: «найти тариф с бесплатной отменой и оплатой на месте».</p>
+          <div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+            <div class="stat"><p class="mono mute" style="margin-bottom:12px">Вариант 1</p><div class="stat__v">~19<sup>с</sup></div><p class="stat__l">Старая страница</p></div>
+            <div class="stat"><p class="mono mute" style="margin-bottom:12px">Вариант 2</p><div class="stat__v">~13<sup>с</sup></div><p class="stat__l">Новые карточки для отелей</p></div>
+            <div class="stat" style="border-right:0"><p class="mono mute" style="margin-bottom:12px">Вариант 3</p><div class="stat__v" style="color:var(--accent)">~7<sup>с</sup></div><p class="stat__l">Конструктор: условия как тумблеры</p></div>
+          </div>
+          <p class="mono mute" style="margin-top:16px">Время до правильного выбора, медиана по участникам</p>
+        </div>
+        
+        <div class="c3-12">
+          <table class="spec ut">
+            <thead><tr><th scope="col">Участник</th><th scope="col">Старая страница</th><th scope="col">Новые карточки</th><th scope="col" class="ut__hi">Конструктор</th></tr></thead>
+            <tbody><tr><th scope="row">P01</th><td>12</td><td>8</td><td class="ut__hi">4</td></tr><tr><th scope="row">P02</th><td>14</td><td>10</td><td class="ut__hi">5</td></tr><tr><th scope="row">P03</th><td>16</td><td>11</td><td class="ut__hi">6</td></tr><tr><th scope="row">P04</th><td>18</td><td>12</td><td class="ut__hi">6</td></tr><tr><th scope="row">P05</th><td>18</td><td>12</td><td class="ut__hi">7</td></tr><tr><th scope="row">P06</th><td>20</td><td>14</td><td class="ut__hi">7</td></tr><tr><th scope="row">P07</th><td>22</td><td>15</td><td class="ut__hi">8</td></tr><tr><th scope="row">P08</th><td>24</td><td>16</td><td class="ut__hi">9</td></tr><tr><th scope="row">P09</th><td>27</td><td>18</td><td class="ut__hi">10</td></tr><tr><th scope="row">P10</th><td>31</td><td>21</td><td class="ut__hi">12</td></tr><tr class="ut__sum"><th scope="row">Медиана, с</th><td>19</td><td>13</td><td class="ut__hi">7</td></tr><tr class="ut__sum"><th scope="row">Среднее, с</th><td>20.2</td><td>13.7</td><td class="ut__hi">7.4</td></tr><tr class="ut__sum"><th scope="row">Верный выбор с первой попытки</th><td>6/10</td><td>9/10</td><td class="ut__hi">10/10</td></tr></tbody>
+          </table>
+        </div>
+        
+        
+        <figure class="c1-12">
+          <div class="figma-embed">
+            <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2F6yOwcK8odJbOaNZccc8UiY%2FApartments%3Fnode-id%3D19067-69097" allowfullscreen title="Живой прототип, Figma" loading="lazy"></iframe>
+          </div>
+          <figcaption>Живой прототип, Figma</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 2.7 -->
+    <section id="s2-7" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Шапка и галерея</h3>
+        <p class="meta">~2 мин · +2.9%</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <dl class="psr c3-10">
+          <div><dt>Проблема</dt><dd>Жильё выбирают глазами, а галерею на интервью критиковали постоянно: фото слишком мелкие, чтобы что-то разобрать, приходилось сразу открывать полноэкранный режим.</dd></div>
+          <div><dt>Решение</dt><dd>Освободили место под галерею: почистили UI и опустили карусель отзывов и рейтинга ниже, фото стали заметно крупнее. Удобства перенесли внутрь развёрнутой галереи: респонденты часто искали особенности апартаментов на фото и сверяли со списком удобств, прыгая между блоками. Теперь фото и список стоят рядом.</dd></div>
+          <div class="res"><dt>Результат</dt><dd>+2.9%</dd></div>
+        </dl>
+        <figure class="c1-12 bare">
+          <img src="assets/old-header.png" alt="Старая шапка страницы отеля">
+        </figure>
+        <figure class="c1-12 bare">
+          <img src="assets/old-gallery.png" alt="Старая полноэкранная галерея">
+        </figure>
+        <figure class="c1-12">
+          <div class="figma-embed">
+            <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2F6yOwcK8odJbOaNZccc8UiY%2FApartments%3Fnode-id%3D19103-107213" allowfullscreen title="Живой прототип, Figma" loading="lazy"></iframe>
+          </div>
+          <figcaption>Живой прототип, Figma</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    
+
+    
+
+    <!-- 2.9 -->
+    <section id="s2-9" class="sub outcome">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Итоги и выводы</h3>
+        <p class="meta">~3 мин</p>
+      </div>
+      <div class="stats reveal" style="margin-top:48px;grid-template-columns:repeat(2,minmax(0,1fr))">
+        <div class="stat"><div class="stat__v">+7<sup>%</sup></div><p class="stat__l">бронирований на уровне проекта</p></div>
+        <div class="stat"><div class="stat__v">+$1.8<sup>M</sup></div><p class="stat__l">в год</p></div>
+      </div>
+
+      <div class="grid sub__body reveal">
+        <figure class="c1-12">
+          <div class="frame r-auto"><img src="https://dimergashev.com/assets/message.png" alt="Сообщение: Aviasales взяли такие же карточки тарифов"></div>
+          <figcaption>Позже Aviasales взяли тот же паттерн карточек тарифов</figcaption>
+        </figure>
+        
+        <div class="c3-10">
+          <p class="eyebrow mute" style="margin-bottom:12px">Выводы</p>
+          <ol class="list">
+            <li><span>Окно ресурсов — законный повод для проекта: он начался с возможности, а аналитика и исследование нашли, куда её направить.</span></li>
+            <li><span>Один корпус исследования на весь проект: 14 интервью хватило и на тарифы, и на галерею.</span></li>
+            <li><span>Иногда лучшее решение — убрать блок, а не улучшить его: на апартаментах это дало больше, чем переработанное сравнение на отелях.</span></li>
+          </ol>
+        </div>
+        
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ======================================================
+     03 — Case 2: Tinkoff Kassa
+     ====================================================== -->
+<section id="kassa" class="sec" data-num="03" data-time="~8–10 мин">
+  <div class="wrap">
+    <div class="grid sec-head reveal">
+      <div class="sec-num">03</div>
+      <h2 class="h2">Tinkoff Kassa: платёжная форма</h2>
+      <dl class="kv c9-12" style="grid-row:span 2">
+        <div><dt>Время</dt><dd>~8–10 мин</dd></div>
+        <div><dt>Масштаб</dt><dd>30M+ MAU</dd></div>
+        <div><dt>Рамки</dt><dd>Только фронтенд</dd></div>
+        <div><dt>Результат</dt><dd>+9% карты · +16% Tinkoff Pay</dd></div>
+      </dl>
+      <p class="lead">Форма, которую каждый бизнес на Tinkoff Kassa показывает при оплате своих услуг и товаров. Маленькие изменения, огромный охват и ограничения от партнёров, бизнесов и бэкенда, который трогать было нельзя.</p>
+    </div>
+
+    <figure class="reveal" style="margin-top:96px">
+      <div class="frame r-16x9 contain"><img src="https://dimergashev.com/assets/tk-kassa.png" alt="Платёжная форма Tinkoff Kassa"></div>
+      <figcaption>Платёжная форма Tinkoff Kassa</figcaption>
+    </figure>
+
+    <!-- Case 2: role (unnumbered) -->
+    <section id="role-kassa" class="sub role">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Моя роль и зона ответственности</h3>
+        <p class="meta">ownership</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <div class="c1-12 cols2">
+          <div class="col">
+            <p class="h4">Что решал я</p>
+            <ol class="list">
+              <li><span>Концепция и варианты сценариев.</span></li>
+              <li><span>UI формы.</span></li>
+              <li><span>Работа с ограничениями партнёров.</span></li>
+              <li><span>Груминг с разработкой.</span></li>
+            </ol>
+          </div>
+          <div class="col">
+            <p class="h4">Команда</p>
+            <ol class="list">
+            <li><span><b>PM</b> — помощь с аналитикой.</span></li>
+            <li><span><b>Дизайн-директор</b> — стейкхолдер по дизайну.</span></li>
+          </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- Контекст -->
+    <section id="s3-ctx" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Контекст</h3>
+        <p class="meta">~1 мин</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <p class="lead c3-10">Платёжная форма — b2c-продукт Tinkoff, куда каждый месяц приходят 30M+ пользователей, чтобы оплатить свои онлайн-покупки.</p>
+      </div>
+    </section>
+
+    <!-- Проблемы -->
+    <section id="s3-problems" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Проблемы</h3>
+        <p class="meta">~1 мин</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <ol class="list c3-8">
+          <li><span>Старый UI.</span></li>
+          <li><span>Высокая когнитивная нагрузка из-за множества тяжёлых кнопок альтернативных способов оплаты.</span></li>
+          <li><span>Низкая конверсия в оплату через Tinkoff Pay.</span></li>
+        </ol>
+        <figure class="c1-12 bare" style="margin-top:48px">
+          <img src="https://dimergashev.com/assets/pf/old-ui.png" alt="Старая версия платёжной формы">
+        </figure>
+      </div>
+    </section>
+
+    <!-- Тикеты -->
+    <section id="s3-tickets" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Анализ обращений в поддержку</h3>
+        <p class="meta">~1 мин · Инсайты</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <ol class="list c3-8">
+          <li><span>Пользователи вводят номер телефона в поле карты.</span></li>
+          <li><span>Пользователи нажимают кнопку оплаты, не введя карту.</span></li>
+        </ol>
+        <p class="c9-12 mono mute">→ Инсайты</p>
+        <figure class="c1-12 bare" style="margin-top:48px">
+          <img src="https://dimergashev.com/assets/pf/tickets.png" alt="Анализ обращений в поддержку">
+        </figure>
+      </div>
+    </section>
+
+    <!-- Задача -->
+    <section id="s3-todo" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Задача</h3>
+        <p class="meta">~1 мин</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <p class="lead c3-10">Обновить UI и одновременно поднять конверсию в оплату картой и через Tinkoff Pay.</p>
+      </div>
+    </section>
+
+    <!-- Ограничения -->
+    <section id="s3-limits" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Ограничения</h3>
+        <p class="meta">~1 мин</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <ol class="list c3-8">
+          <li><span><b>Только фронтенд.</b> Бэкенд и флоу менять нельзя.</span></li>
+          <li><span><b>Гайдлайны партнёров</b> альтернативных способов оплаты.</span></li>
+        </ol>
+        <figure class="c1-12" style="margin-top:48px">
+          <img src="https://dimergashev.com/assets/pf/restrictions.png" alt="Альтернативные способы оплаты и гайдлайны партнёров" style="width:100%;height:auto;display:block">
+          <figcaption>Альтернативные способы оплаты и гайдлайны партнёров</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Процесс -->
+    <section id="s3-process" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Процесс</h3>
+        <p class="meta">~2 мин</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <div class="c3-8 body">
+          <p>Собрали референсы, разобрали конкурентов, сформулировали гипотезы и накидали много вариантов сценария.</p>
+          <p>На груминге с разработкой выяснилось, что критичные изменения сильно ограничены: у формы есть кастомизация мерчантом, которой пользуется большое число пользователей. Поэтому пошли итеративно: первый этап редизайна без серьёзных изменений функциональности.</p>
+        </div>
+        <figure class="c1-12 bare" style="margin-top:48px">
+          <img src="https://dimergashev.com/assets/pf/123.png" alt="Процесс: референсы, скетчи и гипотезы">
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3.3 -->
+    <section id="s3-3" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Решение</h3>
+        <p class="meta">~3 мин</p>
+      </div>
+      <div class="grid sub__body reveal">
+        <ol class="list c3-8">
+          <li><span>Меньше когнитивной нагрузки: более лёгкие кнопки и максимум три альтернативных способа оплаты на экране.</span></li>
+          <li><span>Текст в блоках, который упрощает понимание интерфейса.</span></li>
+        </ol>
+        <figure class="c1-12 bare" style="margin-top:48px">
+          <img src="https://dimergashev.com/assets/pf/sol1.png" alt="Новая платёжная форма: лёгкие кнопки, максимум три альтернативных способа оплаты">
+        </figure>
+        <ol class="list c3-8" style="margin-top:96px">
+          <li><span>Одинаковая раскладка для веба и мобайла, чтобы проще разрабатывать и поддерживать.</span></li>
+        </ol>
+        <figure class="c1-12 bare" style="margin-top:48px">
+          <img src="https://dimergashev.com/assets/pf/321.png" alt="Одинаковая раскладка для веба и мобайла">
+        </figure>
+        <ol class="list c3-8" style="margin-top:96px">
+          <li><span>Больше возможностей показать выгоды и удобство Tinkoff Pay.</span></li>
+        </ol>
+        <figure class="c1-12 bare" style="margin-top:48px">
+          <img src="https://dimergashev.com/assets/pf/331.png" alt="Выгоды Tinkoff Pay на платёжной форме">
+        </figure>
+        <ol class="list c3-8" style="margin-top:96px">
+          <li><span>Для любителей тёмной темы.</span></li>
+        </ol>
+        <figure class="c1-12 bare" style="margin-top:48px">
+          <img src="https://dimergashev.com/assets/pf/sol4.png" alt="Тёмная тема платёжной формы">
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3.4 -->
+    <section id="s3-4" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Результат</h3>
+        <p class="meta">~1 мин</p>
+      </div>
+      <div class="stats reveal" style="margin-top:48px;grid-template-columns:repeat(2,minmax(0,1fr))">
+        <div class="stat"><div class="stat__v">+9<sup>%</sup></div><p class="stat__l">оплат картой</p></div>
+        <div class="stat"><div class="stat__v">+16<sup>%</sup></div><p class="stat__l">оплат через Tinkoff Pay</p></div>
+      </div>
+    </section>
+
+    <!-- Tinkoff Wallet -->
+    <section id="s3-wallet" class="sub">
+      <div class="grid sub__head reveal">
+        <h3 class="h3">Бонус</h3>
+      </div>
+      <div class="grid sub__body reveal">
+        <figure class="c1-12">
+          <div class="figma-embed">
+            <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FL1HTuYhOj9SFpPMu2Kev1E%2FTinkoff-Wallet%3Fnode-id%3D1-20" allowfullscreen title="Tinkoff Wallet, Figma" loading="lazy"></iframe>
+          </div>
+          <figcaption>Tinkoff Wallet, Figma</figcaption>
+        </figure>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ======================================================
+     04 — Craft
+     ====================================================== -->
+
+
+<!-- ======================================================
+     04 — Q&A / Appendix
+     ====================================================== -->
+
+
+<section id="outro" class="sec outro" data-num="03" data-time="~10–15 мин · вопросы">
+  <div class="wrap">
+    <div class="grid reveal">
+      <h2 class="display c1-12" style="letter-spacing:0">Thank you<br><em>for your time!</em></h2>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="grid mono">
+    <span class="c1-7">Дим Эргашев · Продуктовый дизайнер</span>
+    <span>Revolut · Собеседование по дизайну · 2026</span>
+  </div></div>
+</footer>
+
+<script>
+(function(){
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main > section'));
+  var links = document.querySelectorAll('.nav__links a');
+  var cur = document.getElementById('secCur');
+  var time = document.getElementById('secTime');
+  var bar = document.getElementById('progress');
+
+  // Reading progress
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Active section + counter
+  function setActive(sec){
+    cur.textContent = sec.dataset.num;
+    time.textContent = sec.dataset.time;
+    for (var i = 0; i < links.length; i++){
+      links[i].classList.toggle('is-active', links[i].dataset.sec === sec.id);
+    }
+  }
+  if ('IntersectionObserver' in window){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) setActive(e.target); });
+    }, {rootMargin:'-45% 0px -54% 0px'});
+    sections.forEach(function(s){ spy.observe(s); });
+
+    // Fade-in (threshold 0 so tall blocks still trigger)
+    var rev = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); rev.unobserve(e.target); }
+      });
+    }, {rootMargin:'0px 0px -5% 0px', threshold:0});
+    document.querySelectorAll('.reveal').forEach(function(el){ rev.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // Safety net: reveal everything above or inside the viewport right now
+  function revealVisible(){
+    var vh = window.innerHeight;
+    document.querySelectorAll('.reveal:not(.in)').forEach(function(el){
+      if (el.getBoundingClientRect().top < vh) el.classList.add('in');
+    });
+  }
+  // On load with #hash, on hash change, on anchor clicks
+  // Deep link: images above the target change layout while loading, so re-land on the hash after load
+  window.addEventListener('load', function(){
+    var t = location.hash && document.getElementById(location.hash.slice(1));
+    if (t){
+      document.documentElement.style.scrollBehavior = 'auto';
+      t.scrollIntoView();
+      document.documentElement.style.scrollBehavior = '';
+    }
+    revealVisible();
+  });
+  window.addEventListener('hashchange', function(){ revealVisible(); setTimeout(revealVisible, 50); });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var t = document.getElementById(a.getAttribute('href').slice(1));
+    if (!t) return;
+    // Reveal the target and everything before it, so the landing screen is never empty
+    document.querySelectorAll('.reveal:not(.in)').forEach(function(el){
+      if (el.compareDocumentPosition(t) & Node.DOCUMENT_POSITION_FOLLOWING || el === t || el.contains(t) || t.contains(el)) el.classList.add('in');
+    });
+    setTimeout(revealVisible, 50);
+  });
+  if (location.hash) revealVisible();
+  // Fallback: 1.5s after scrolling settles
+  var st = null;
+  window.addEventListener('scroll', function(){ clearTimeout(st); st = setTimeout(revealVisible, 1500); }, {passive:true});
+
+  setActive(sections[0]);
+
+  // Rehearsal stopwatch
+  var btn = document.getElementById('timer'), t0 = 0, acc = 0, iv = null;
+  function fmt(ms){ var s = Math.floor(ms/1000); return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  btn.addEventListener('click', function(){
+    if (iv){ acc += Date.now() - t0; clearInterval(iv); iv = null; btn.classList.remove('is-running'); }
+    else { t0 = Date.now(); iv = setInterval(function(){ btn.textContent = fmt(acc + Date.now() - t0); }, 250); btn.classList.add('is-running'); }
+  });
+  btn.addEventListener('dblclick', function(){ clearInterval(iv); iv = null; acc = 0; btn.textContent = '00:00'; btn.classList.remove('is-running'); });
+
+  // Hero: "World" → стирается → "Revolut", по кругу с паузой 3 с
+  (function(){
+    var el=document.querySelector('.typed'); if(!el) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var from=el.getAttribute('data-from'), to=el.getAttribute('data-to');
+    el.textContent=from; el.classList.add('is-typing');
+    function typeWord(word,speed,done){ var i=0; (function step(){ i++; el.textContent=word.slice(0,i); if(i<word.length) setTimeout(step,speed); else done(); })(); }
+    function eraseWord(speed,done){ (function step(){ var t=el.textContent; if(!t.length){ done(); return; } el.textContent=t.slice(0,-1); setTimeout(step,speed); })(); }
+    function cycle(){
+      eraseWord(55,function(){ setTimeout(function(){
+        typeWord(to,95,function(){ setTimeout(function(){
+          eraseWord(55,function(){ setTimeout(function(){
+            typeWord(from,90,function(){ setTimeout(cycle,3000); });
+          },350); });
+        },3000); });
+      },350); });
+    }
+    setTimeout(cycle,1200);
+  })();
+})();
+</script>
+</body>
+</html>
